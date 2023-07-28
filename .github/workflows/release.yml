@@ -1,0 +1,34 @@
+name: Release
+
+on:
+  push:
+    branches: ['master']
+
+jobs:
+  publish-gpr:
+    runs-on: ubuntu-latest
+    environment: publish-env
+    permissions:
+      packages: write
+      contents: read
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          always-auth: true
+          node-version: 18.x
+          registry-url: https://npm.pkg.github.com/
+      - run: yarn install --frozen-lockfile
+      - run: yarn build-library
+
+      - name: Registry Setter
+        run: yarn config set npmPublishRegistry 'https://npm.pkg.github.com/'
+
+      - name: Token Setter
+        run: yarn config set npmAuthToken ${NODE_AUTH_TOKEN}
+
+      - name: Publish
+        run: yarn publish
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.GIT_TOKEN}}
+          NPM_AUTH_TOKEN: ${{secrets.GIT_TOKEN}}

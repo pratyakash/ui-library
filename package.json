@@ -1,0 +1,78 @@
+{
+  "name": "@pratyakash/ui-library",
+  "version": "0.1.17",
+  "private": false,
+  "main": "dist/index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/pratyakash/ui-library.git"
+  },
+  "dependencies": {
+    "@types/node": "20.4.2",
+    "@types/react": "18.2.15",
+    "@types/react-dom": "18.2.7",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-scripts": "5.0.1",
+    "typescript": "^4.9.5",
+    "web-vitals": "^2.1.4"
+  },
+  "scripts": {
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build",
+    "build": "yarn clean && yarn build:types && yarn build:js",
+    "pub": "cd dist && yarn publish",
+    "clean": "rm -rf dist",
+    "build:types": "tsc --emitDeclarationOnly",
+    "build-library": "rimraf dist && tsc",
+    "build:js": "babel index.ts --out-dir dist/ --extensions \".ts,.tsx\" --source-maps inline  && babel src --out-dir dist/src --extensions \".ts,.tsx\" --source-maps inline  && cp package.json dist/ && cp README.md dist/"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "plugin:storybook/recommended"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.17.10",
+    "@babel/core": "^7.17.9",
+    "@babel/preset-env": "^7.18.2",
+    "@babel/preset-react": "^7.17.12",
+    "@babel/preset-typescript": "^7.17.12",
+    "@storybook/addon-essentials": "^7.1.1",
+    "@storybook/addon-interactions": "^7.1.1",
+    "@storybook/addon-links": "^7.1.1",
+    "@storybook/addon-onboarding": "^1.0.8",
+    "@storybook/blocks": "^7.1.1",
+    "@storybook/preset-create-react-app": "^7.1.1",
+    "@storybook/react": "^7.1.1",
+    "@storybook/react-webpack5": "^7.1.1",
+    "babel-loader": "^8.2.4",
+    "babel-plugin-css-to-js-transform": "^1.0.2",
+    "babel-plugin-inline-import-data-uri": "^1.0.1",
+    "babel-plugin-inline-react-svg": "^2.0.1",
+    "babel-plugin-named-exports-order": "^0.0.2",
+    "eslint-plugin-storybook": "^0.6.13",
+    "rimraf": "^5.0.1",
+    "storybook": "^7.1.1",
+    "webpack": "^5.88.2"
+  },
+  "files": [
+    "dist"
+  ],
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/pratyakash"
+  }
+}
